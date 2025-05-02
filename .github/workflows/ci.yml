@@ -1,0 +1,45 @@
+name: CI/CD
+
+on:
+  push:
+
+permissions:
+  contents: write
+  id-token: write
+  issues: write
+  packages: write
+  pull-requests: write
+
+jobs:
+  linters:
+    name: Linters
+    if: github.ref_name != 'master'
+    uses: ahmdigital/ahm-github-workflows/.github/workflows/linters.yml@master
+    with:
+      check-types: false
+      trivy: false
+      knip: false
+      typos: false
+      lint: true
+      skip-cloudwatch-logs: true
+    secrets:
+      AWS_ACCESS_ROLE_NPRD: "Not used while skip-cloudwatch-logs is true"
+      AWS_DEFAULT_REGION: "Not used while skip-cloudwatch-logs is true"
+      NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+#   jest:
+#     name: Jest
+#     if: github.ref_name != 'master'
+#     uses: ahmdigital/ahm-github-workflows/.github/workflows/jest-single-shard.yml@master
+#     secrets:
+#       NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+  release:
+    name: Release
+    if: github.ref_name == 'master'
+    uses: ahmdigital/ahm-github-workflows/.github/workflows/publish-package.yml@master
+    with:
+      SR_RELEASERC: ${{ vars.SR_RELEASERC }}
+      VERSION_BUMPER_APP_ID: ${{ vars.VERSION_BUMPER_APP_ID }}
+    secrets:
+      NPM_TOKEN_PUBLISH: ${{ secrets.NPM_TOKEN_PUBLISH }}
+      SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+      VERSION_BUMPER_APP_PRIVATE_KEY: ${{ secrets.VERSION_BUMPER_APP_PRIVATE_KEY }}
