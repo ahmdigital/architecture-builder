@@ -9,16 +9,24 @@ import GraphNode from './types/GraphNode';
 import GraphRenderer from './graph-renderer';
 
 const Wrapper = styled.div`
-  align-items: top;
   display: flex;
   flex-direction: row;
   justify-content: left;
+  align-items: flex-start;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+  }
 `;
 
 const Sidebar = styled.div`
   flex-shrink: 0;
   width: 18rem;
   margin: 1rem;
+`;
+
+const GraphRendererWrapper = styled.div`
+  flex: 1;
 `;
 
 const Button = styled.button`
@@ -97,14 +105,16 @@ export const ArchitectureBuilder = ({ edges, nodes }: { edges: GraphEdge[]; node
           </div>
         ))}
       </Sidebar>
-      <GraphRenderer
-        {...{
-          edges: filterEdges(edges)(checkedItems),
-          header,
-          nodes: filterNodes(nodes)(checkedItems),
-          showDetail,
-        }}
-      />
+        <GraphRendererWrapper>
+          <GraphRenderer
+            {...{
+              edges: filterEdges(edges)(checkedItems),
+              header,
+              nodes: filterNodes(nodes)(checkedItems),
+              showDetail,
+            }}
+          />
+        </GraphRendererWrapper>
     </Wrapper>
   );
 };
