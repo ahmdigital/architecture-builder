@@ -3,11 +3,16 @@ import { map, replace } from 'lodash';
 import React, { useState } from 'react';
 import Viz from 'viz.js';
 import FileSaver from 'file-saver';
+import styled from 'styled-components';
 
 import buildEdgeToDot from './utils/build-edge-to-dot';
 import buildNodeToDot from './utils/build-node-to-dot';
 import GraphEdge from '../types/GraphEdge';
 import GraphNode from '../types/GraphNode';
+
+const Wrapper = styled.div`
+  height: 90vh
+`;
 
 const handleSave = ({ content, fileType, mimeType }: { content: string; fileType: string; mimeType: string }) => {
   const blob = new Blob([content], { type: `${mimeType};charset=utf-8` });
@@ -62,11 +67,11 @@ const GraphRenderer = ({
 
   return (
     <div>
-      <div
-        dangerouslySetInnerHTML={{
-          __html: removeExplicitDimensions(svgString),
-        }}
-      />
+        <Wrapper
+          dangerouslySetInnerHTML={{
+            __html: removeExplicitDimensions(svgString),
+          }}
+        />
 
       {map(fileDefinitions, item => (
         <button key={item.fileType} type="button" onClick={() => handleSave(item)}>

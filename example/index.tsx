@@ -19,6 +19,24 @@ const edges = [
     to: 'WEBSITE',
     description: "uses 'GraphQL'"
   },
+  {
+    minutesBetweenData: 0.1,
+    from: 'WEBSITE',
+    to: 'SANITY_BACKENDX',
+    description: "uses 'GraphQL'"
+  },
+  {
+    minutesBetweenData: 0.1,
+    from: 'SANITY_BACKENDX',
+    to: 'SANITY_STUDIOX',
+    description: "uses 'GraphQL'"
+  },
+  {
+    minutesBetweenData: 0.1,
+    from: 'SANITY_STUDIOX',
+    to: 'WEBSITEX',
+    description: "uses 'GraphQL'"
+  },
 ];
 
 const nodes = [
@@ -44,6 +62,34 @@ const nodes = [
   {
     id: 'WEBSITE',
     name: 'ahm.com.au',
+    descriptionItems: {
+      featureList: 'Join health insurance, View member perks',
+      author: 'ahm Digital',
+    },
+    url: 'https://ahm.com.au',
+  },
+  {
+    id: 'SANITY_STUDIOX',
+    name: 'Sanity Studiox',
+    descriptionItems: {
+      featureList: 'Headless Content Management System Front-end',
+      identifier: 'xxxyyy',
+      author: 'ahm Digital',
+    },
+    url: 'https://ahm.sanity.studio',
+  },
+  {
+    id: 'SANITY_BACKENDX',
+    name: 'Sanity Backendx',
+    descriptionItems: {
+      featureList: 'Content data store',
+      author: 'Sanity',
+    },
+    url: undefined,
+  },
+  {
+    id: 'WEBSITEX',
+    name: 'ahm.com.aux',
     descriptionItems: {
       featureList: 'Join health insurance, View member perks',
       author: 'ahm Digital',
